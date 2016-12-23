@@ -1,0 +1,28 @@
+Sending build context to Docker daemon 3.072 kB
+Step 1 : FROM rhel7:latest
+ ---> e8e3aaf82af5
+Step 2 : USER root
+ ---> Using cache
+ ---> 1f28563969d0
+Step 3 : MAINTAINER David Taylor
+ ---> Using cache
+ ---> c9a38c4640f4
+Step 4 : RUN yum update -y --disablerepo=*-eus-* --disablerepo=*-htb-* --disablerepo=*sjis*     --disablerepo=*-ha-* --disablerepo=*-rt-* --disablerepo=*-lb-*     --disablerepo=*-rs-* --disablerepo=*-sap-*
+ ---> Using cache
+ ---> 4522093b9685
+Step 5 : RUN yum-config-manager --disable *-eus-* *-htb-* *-ha-* *-rt-* *-lb-*    *-rs-* *-sap-* *-sjis-* > /dev/null
+ ---> Using cache
+ ---> b9e8d34acb7f
+Step 6 : RUN yum -y install http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+ ---> Using cache
+ ---> 30341efcf528
+Step 7 : RUN yum -y install net-tools mongodb-server
+ ---> Using cache
+ ---> 826ad8d7dcd1
+Step 8 : EXPOSE 27017
+ ---> Using cache
+ ---> d3f5a26e4e45
+Step 9 : CMD /usr/bin/mongod --quiet -f /etc/mongod.conf run
+ ---> Using cache
+ ---> d35cb4b7b2ca
+Successfully built d35cb4b7b2ca

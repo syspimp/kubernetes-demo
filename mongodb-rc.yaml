@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: mongodb-controller
+spec:
+  replicas: 1
+  selector:
+    name: "mongodb"
+  template:
+    metadata:
+      name: "mongodb"
+      labels:
+        name: "mongodb"
+    spec:
+      containers:
+      - name: "mongodb"
+        image: "localhost:5000/rhel7mongodb"
+        ports:
+        - containerPort: 27017
+

@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: mongodb
+  name: mongodb-service
+  namespace: default
+spec:
+  ports:
+  - port: 27017
+    name: mongodb-port
+    protocol: TCP
+#    targetPort: 27017
+  selector:
+    name: mongodb
+#  type: LoadBalancer
