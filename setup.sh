@@ -28,7 +28,7 @@ echo msg running yum repolist. Check if this is ok, then press enter to continue
 echo yum repolist
 
 msg Installing docker and a registry, kubernetes, and etcd
-
+echo yum -y install kubernetes docker etcd docker-selinux docker-distribution
 yum -y install kubernetes docker etcd docker-selinux docker-distribution
 
 msg Diff of etcd/etcd.conf to be copied over
@@ -52,11 +52,19 @@ read answer
 
 rsync -avz etcd/ /etc/etcd/
 rsync -avz kubernetes/ /etc/kubernetes/
+mkdir /etc/kubernetes/manifests
 hostname=$(hostname)
 shortname=$(hostname --short)
 echo "${newip} ${hostname} ${shortname}" >> /etc/hosts
+echo "alias kubectl='kubectl -s ${newip}:8080'" >> /root/.bashrc
+echo "alias kubectl='kubectl -s ${newip}:8080'" >> /home/cloud-user/.bashrc
+date=$(date +%F)
+msg Appending a nifty tiger to /etc/motd, made a backup of current to /etc/motd.${date}
+cp /etc/motd /etc/motd.${date}
+cat custom/tiger.ascii >> /etc/motd
+cat /etc/motd
 
 msg Enabling and starting services
 ./start-kubernetes.sh
 
-msg Try 'kubectl get pods' or 'kubectl -s ${newip} get pods'
+msg Try 'kubectl get pods' or 'kubectl -s ${newip}:8080 get pods'
