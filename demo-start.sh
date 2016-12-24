@@ -62,8 +62,9 @@ kubectl create -f webserver-service.yaml --validate=false
 kubectl create -f webserver-rc.yaml --validate=false
 
 msg lets get the public ip of our host
-IP=$(nmcli connection show eth0 |grep IP4.ADDRESS | awk '{print $2}' )
-IP=${IP%%/24}
+#IP=$(nmcli connection show eth0 |grep IP4.ADDRESS | awk '{print $2}' )
+#IP=${IP%%/24}
+IP=$(ip addr list eth0 | grep 'inet ' | cut -d ' ' -f 6 | cut -d / -f1)
 msg local ip is $IP
 
 msg now lets get the public port
