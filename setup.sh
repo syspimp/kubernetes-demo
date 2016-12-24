@@ -52,6 +52,9 @@ read answer
 
 rsync -avz etcd/ /etc/etcd/
 rsync -avz kubernetes/ /etc/kubernetes/
+hostname=$(hostname)
+shortname=$(hostname --short)
+echo "${newip} ${hostname} ${shortname}" >> /etc/hosts
 
 msg Enabling and starting services
 ./start-kubernetes.sh
